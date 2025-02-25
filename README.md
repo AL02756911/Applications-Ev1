@@ -10,6 +10,7 @@ Halcon is a construction material distributor that requires a web application to
 4. [Order Lifecycle Process](#order-lifecycle-process)
 5. [Diagrams](#diagrams)
 6. [Work Methodology](#work-methodology)
+7. [Work Methodology](#chosen-database)
 
 ## Project Description
 Halcon’s proposed web application will serve two primary audiences:
@@ -92,3 +93,71 @@ For the planning and execution of this project, an **Agile methodology (specific
 - **Transparency:** Scrum’s emphasis on a clear backlog and regular reviews keeps all stakeholders informed about progress and any changes in priorities.
 
 This agile approach not only supports efficient planning and execution but also ensures that the final application is well-aligned with the evolving needs of Halcon’s diverse user base.
+
+## Chosen Database
+
+For this project, we have chosen **MySQL** as the database management system due to the following reasons:
+
+- **Relational Structure:** MySQL is well-suited for structured data with well-defined relationships, making it ideal for handling orders, users, and roles.
+- **Scalability & Performance:** It efficiently handles a growing dataset and ensures fast query execution.
+- **Data Integrity & Security:** Supports ACID compliance, ensuring data reliability and role-based access control.
+- **Widespread Support:** MySQL is widely used in enterprise applications and has strong community and commercial support.
+
+### **Entity-Relationship Diagram**
+The following diagram represents the structure of the database:
+
+```mermaid
+erDiagram
+    CUSTOMER {
+        string customerNumber PK
+        string name
+        string fiscalData
+    }
+    
+    ORDER {
+        int orderID PK
+        string invoiceNumber
+        string customerNumber FK
+        datetime orderDateTime
+        string deliveryAddress
+        string notes
+        int statusID FK
+        string loadedPhoto
+        string deliveredPhoto
+        boolean isDeleted
+    }
+
+    STATUS {
+        int statusID PK
+        string statusName
+    }
+
+    USER {
+        int userID PK
+        string username
+        string password
+        string email
+        int roleID FK
+    }
+
+    ROLE {
+        int roleID PK
+        string roleName
+        string description
+    }
+
+    AUDIT_LOG {
+        int logID PK
+        int orderID FK
+        int userID FK
+        datetime actionDateTime
+        string action
+        string details
+    }
+
+    CUSTOMER ||--o{ ORDER : "places"
+    ORDER }|--|| STATUS : "has"
+    ORDER ||--o{ AUDIT_LOG : "tracked by"
+    USER ||--o{ AUDIT_LOG : "performs"
+    USER }|--|| ROLE : "has"
+```
