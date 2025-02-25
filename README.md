@@ -10,7 +10,7 @@ Halcon is a construction material distributor that requires a web application to
 4. [Order Lifecycle Process](#order-lifecycle-process)
 5. [Diagrams](#diagrams)
 6. [Work Methodology](#work-methodology)
-7. [Work Methodology](#chosen-database)
+7. [Chosen Database](#chosen-database)
 
 ## Project Description
 Halcon’s proposed web application will serve two primary audiences:
