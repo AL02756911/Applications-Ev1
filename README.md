@@ -9,6 +9,7 @@ Halcon is a construction material distributor that requires a web application to
 3. [User Roles and Permissions](#user-roles-and-permissions)
 4. [Order Lifecycle Process](#order-lifecycle-process)
 5. [Diagrams](#diagrams)
+6. [Work Methodology](#work-methodology)
 
 ## Project Description
 Halcon’s proposed web application will serve two primary audiences:
@@ -78,3 +79,16 @@ Below are the planned diagrams for this project (actual diagrams in the `/diagra
 - **Use Case Diagram:** Illustrates the interactions between users (Customer, Sales, Purchasing, Warehouse, Route, Administrator) and system functionalities.
 - **ER Diagram:** Defines the database entities (Orders, Users, Roles, etc.) and their relationships.
 
+## Work Methodology
+
+For the planning and execution of this project, an **Agile methodology (specifically Scrum)** is ideal. 
+
+**Justification:**
+
+- **Iterative Development:** The project involves multiple user roles and a complex order lifecycle. Scrum’s iterative sprints allow for gradual development, testing, and refinement of each feature.
+- **Flexibility:** As feedback is received from stakeholders (Sales, Purchasing, Warehouse, Route, and Administration), requirements can be reassessed and prioritized in subsequent sprints.
+- **Collaboration:** Regular Scrum meetings (daily stand-ups, sprint planning, reviews, and retrospectives) promote continuous communication among team members and ensure alignment with project goals.
+- **Risk Management:** Frequent iterations help identify and mitigate issues early in the development process, reducing overall project risk.
+- **Transparency:** Scrum’s emphasis on a clear backlog and regular reviews keeps all stakeholders informed about progress and any changes in priorities.
+
+This agile approach not only supports efficient planning and execution but also ensures that the final application is well-aligned with the evolving needs of Halcon’s diverse user base.
