@@ -47,6 +47,8 @@ class OrderController extends Controller
         $order->statusID        = $request->statusID;
         $order->save();
 
+        toastr()->success('Order created successfully.');
+
         return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }
 
@@ -89,6 +91,8 @@ class OrderController extends Controller
             'details'        => 'Order details updated.'
         ]);
 
+        toastr()->success('Order updated successfully.');
+
         return redirect()->route('orders.index')->with('success', 'Order updated successfully.');
     }
 
@@ -109,6 +113,8 @@ class OrderController extends Controller
             'action'         => 'Status Changed',
             'details'        => 'Order status changed to ' . Status::find($request->statusID)->statusName
         ]);
+
+        toastr()->success('Order status changed to ' . $order->status->statusName . '.');
 
         return redirect()->route('orders.index')->with('success', 'Order status changed successfully.');
     }
@@ -134,6 +140,8 @@ class OrderController extends Controller
                 'action'         => 'Photo Uploaded',
                 'details'        => 'Photo uploaded for order ' . $order->invoiceNumber
             ]);
+
+            toastr()->success('Photo uploaded successfully.');
 
             return redirect()->route('orders.index')->with('success', 'Photo uploaded successfully.');
         }
@@ -162,6 +170,8 @@ class OrderController extends Controller
             'details'        => 'Order marked as deleted.'
         ]);
 
+        toastr()->success('Order archived successfully.');
+
         return redirect()->route('orders.index')->with('success', 'Order deleted successfully.');
     }
 
@@ -186,6 +196,8 @@ class OrderController extends Controller
             'action'         => 'Order Restored',
             'details'        => 'Order restored from archive.'
         ]);
+
+        toastr()->success('Order restored successfully.');
 
         return redirect()->route('orders.archived')->with('success', 'Order restored successfully.');
     }

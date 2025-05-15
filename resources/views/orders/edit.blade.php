@@ -1,46 +1,52 @@
 @extends('layouts.app')
-
 @section('content')
-<h1>Edit Order</h1>
-<form action="{{ route('orders.update', $order->orderID) }}" method="POST">
-    @csrf
-    @method('PUT')
-    <div>
-        <label>Invoice Number:</label>
-        <input type="text" name="invoiceNumber" value="{{ old('invoiceNumber', $order->invoiceNumber) }}" required>
+<h2>Edit Order</h2>
+<form action="{{ route('orders.update', $order) }}" method="POST" class="row g-3">
+    @csrf @method('PUT')
+    <div class="col-md-3">
+        <label class="form-label">Invoice #</label>
+        <input type="text" name="invoiceNumber" class="form-control"
+            value="{{ $order->invoiceNumber }}" required>
     </div>
-    <div>
-        <label>Customer Number:</label>
-        <select name="customerNumber" required>
-            @foreach($customers as $customer)
-            <option value="{{ $customer->customerNumber }}" {{ $order->customerNumber == $customer->customerNumber ? 'selected' : '' }}>
-                {{ $customer->name }} ({{ $customer->customerNumber }})
+    <div class="col-md-3">
+        <label class="form-label">Customer</label>
+        <select name="customerNumber" class="form-select" required>
+            @foreach($customers as $cust)
+            <option value="{{ $cust->customerNumber }}"
+                {{ $cust->customerNumber == $order->customerNumber ? 'selected' : '' }}>
+                {{ $cust->name }}
             </option>
             @endforeach
         </select>
     </div>
-    <div>
-        <label>Order Date & Time:</label>
-        <input type="datetime-local" name="orderDateTime" value="{{ old('orderDateTime', date('Y-m-d\TH:i', strtotime($order->orderDateTime))) }}" required>
+    <div class="col-md-3">
+        <label class="form-label">Order Date</label>
+        <input type="datetime-local" name="orderDateTime" class="form-control"
+            value="{{ \Carbon\Carbon::parse($order->orderDateTime)->format('Y-m-d\TH:i') }}" required>
     </div>
-    <div>
-        <label>Delivery Address:</label>
-        <input type="text" name="deliveryAddress" value="{{ old('deliveryAddress', $order->deliveryAddress) }}" required>
-    </div>
-    <div>
-        <label>Notes:</label>
-        <textarea name="notes">{{ old('notes', $order->notes) }}</textarea>
-    </div>
-    <div>
-        <label>Status:</label>
-        <select name="statusID" required>
-            @foreach($statuses as $status)
-            <option value="{{ $status->statusID }}" {{ $order->statusID == $status->statusID ? 'selected' : '' }}>
-                {{ $status->statusName }}
+    <div class="col-md-3">
+        <label class="form-label">Status</label>
+        <select name="statusID" class="form-select" required>
+            @foreach($statuses as $st)
+            <option value="{{ $st->statusID }}"
+                {{ $st->statusID == $order->statusID ? 'selected' : '' }}>
+                {{ $st->statusName }}
             </option>
             @endforeach
         </select>
     </div>
-    <button type="submit">Update Order</button>
+    <div class="col-12">
+        <label class="form-label">Delivery Address</label>
+        <input type="text" name="deliveryAddress" class="form-control"
+            value="{{ $order->deliveryAddress }}" required>
+    </div>
+    <div class="col-12">
+        <label class="form-label">Notes</label>
+        <textarea name="notes" class="form-control">{{ $order->notes }}</textarea>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary">Update Order</button>
+        <a href="{{ route('orders.index') }}" class="btn btn-secondary">Cancel</a>
+    </div>
 </form>
 @endsection

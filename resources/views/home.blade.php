@@ -1,29 +1,27 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Order Search</title>
-</head>
+@section('content')
+<h2 class="mb-4">Track Your Order</h2>
+<form action="{{ route('order.search') }}" method="POST" class="row g-3">
+    @csrf
+    <div class="col-md-5">
+        <input type="text" name="invoiceNumber" class="form-control" placeholder="Invoice #" required>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary">Search</button>
+    </div>
+</form>
 
-<body>
-    <h1>Search Order by Invoice Number</h1>
-    <form action="{{ route('order.search') }}" method="POST">
-        @csrf
-        <input type="text" name="invoiceNumber" placeholder="Enter Invoice Number" required>
-        <button type="submit">Search</button>
-    </form>
-
-    @if(isset($order))
-    <h2>Order Details</h2>
-    <p>Invoice: {{ $order->invoiceNumber }}</p>
-    <p>Status: {{ $order->status->statusName }}</p>
-    @if($order->status->statusName == 'Delivered')
-    <img src="{{ asset('storage/' . $order->deliveredPhoto) }}" alt="Delivered Photo" width="200">
-    @elseif($order->status->statusName == 'In Process')
-    <p>Process Name: In Process</p>
-    <p>Date: {{ $order->orderDateTime }}</p>
-    @endif
-    @endif
-</body>
-
-</html>
+@if(isset($order))
+<div class="card mt-4">
+    <div class="card-body">
+        <h5>Status: <span class="badge bg-info">{{ $order->status->statusName }}</span></h5>
+        @if($order->status->statusName === 'Delivered')
+        <img src="{{ asset('storage/'.$order->deliveredPhoto) }}" class="img-fluid mt-3" alt="Delivered">
+        @elseif($order->status->statusName === 'In Process')
+        <p class="mt-2">Processing since: {{ $order->orderDateTime }}</p>
+        @endif
+    </div>
+</div>
+@endif
+@endsection

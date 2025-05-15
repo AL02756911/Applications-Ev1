@@ -1,15 +1,14 @@
 @extends('layouts.app')
-
 @section('content')
-<h1>Order List</h1>
-<a href="{{ route('orders.create') }}">Create New Order</a>
-<table border="1" cellpadding="5">
+<h2>Order List</h2>
+<a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">+ New Order</a>
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>Order ID</th>
-            <th>Invoice Number</th>
+            <th>ID</th>
+            <th>Invoice #</th>
             <th>Customer</th>
-            <th>Order Date</th>
+            <th>Date</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
@@ -19,16 +18,16 @@
         <tr>
             <td>{{ $order->orderID }}</td>
             <td>{{ $order->invoiceNumber }}</td>
-            <td>{{ $order->customer ? $order->customer->name : 'N/A' }}</td>
+            <td>{{ optional($order->customer)->name }}</td>
             <td>{{ $order->orderDateTime }}</td>
-            <td>{{ $order->status->statusName }}</td>
+            <td><span class="badge bg-info">{{ $order->status->statusName }}</span></td>
             <td>
-                <a href="{{ route('orders.show', $order->orderID) }}">View</a>
-                <a href="{{ route('orders.edit', $order->orderID) }}">Edit</a>
-                <form action="{{ route('orders.destroy', $order->orderID) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Delete this order?')">Delete</button>
+                <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-outline-primary">View</a>
+                <a href="{{ route('orders.edit', $order) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <form action="{{ route('orders.destroy', $order) }}" method="POST" class="d-inline">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-sm btn-outline-danger"
+                        onclick="return confirm('Delete this order?')">Delete</button>
                 </form>
             </td>
         </tr>

@@ -1,9 +1,8 @@
 @extends('layouts.app')
-
 @section('content')
-<h1>User List</h1>
-<a href="{{ route('users.create') }}">Create New User</a>
-<table border="1" cellpadding="5">
+<h2>User Management</h2>
+<a href="{{ route('users.create') }}" class="btn btn-primary mb-3">+ New User</a>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
@@ -20,14 +19,20 @@
             <td>{{ $user->id }}</td>
             <td>{{ $user->username }}</td>
             <td>{{ $user->email }}</td>
-            <td>{{ $user->role ? $user->role->roleName : 'N/A' }}</td>
-            <td>{{ isset($user->active) && $user->active ? 'Active' : 'Inactive' }}</td>
+            <td>{{ optional($user->role)->roleName }}</td>
             <td>
-                <a href="{{ route('users.edit', $user->id) }}">Edit</a>
-                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure you want to deactivate this user?')">Deactivate</button>
+                @if($user->active ?? true)
+                <span class="badge bg-success">Active</span>
+                @else
+                <span class="badge bg-secondary">Inactive</span>
+                @endif
+            </td>
+            <td>
+                <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-sm btn-outline-danger"
+                        onclick="return confirm('Deactivate this user?')">Deactivate</button>
                 </form>
             </td>
         </tr>

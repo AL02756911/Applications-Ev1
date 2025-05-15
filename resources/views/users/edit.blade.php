@@ -1,32 +1,36 @@
 @extends('layouts.app')
-
 @section('content')
-<h1>Edit User</h1>
-<form action="{{ route('users.update', $user->id) }}" method="POST">
-    @csrf
-    @method('PUT')
-    <div>
-        <label>Username:</label>
-        <input type="text" name="username" value="{{ old('username', $user->username) }}" required>
+<h2>Edit User</h2>
+<form action="{{ route('users.update', $user) }}" method="POST" class="row g-3">
+    @csrf @method('PUT')
+    <div class="col-md-4">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="form-control"
+            value="{{ $user->username }}" required>
     </div>
-    <div>
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ old('email', $user->email) }}" required>
+    <div class="col-md-4">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control"
+            value="{{ $user->email }}" required>
     </div>
-    <div>
-        <label>Password: (leave blank if not changing)</label>
-        <input type="password" name="password">
+    <div class="col-md-4">
+        <label class="form-label">Password <small>(leave blank to keep)</small></label>
+        <input type="password" name="password" class="form-control">
     </div>
-    <div>
-        <label>Role:</label>
-        <select name="role_id" required>
+    <div class="col-md-4">
+        <label class="form-label">Role</label>
+        <select name="role_id" class="form-select" required>
             @foreach($roles as $role)
-            <option value="{{ $role->roleID }}" {{ $user->roleID == $role->roleID ? 'selected' : '' }}>
+            <option value="{{ $role->roleID }}"
+                {{ $user->roleID == $role->roleID ? 'selected' : '' }}>
                 {{ $role->roleName }}
             </option>
             @endforeach
         </select>
     </div>
-    <button type="submit">Update User</button>
+    <div class="col-12">
+        <button class="btn btn-primary">Update</button>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
+    </div>
 </form>
 @endsection

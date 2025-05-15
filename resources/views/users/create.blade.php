@@ -1,30 +1,32 @@
 @extends('layouts.app')
-
 @section('content')
-<h1>Create User</h1>
-<form action="{{ route('users.store') }}" method="POST">
+<h2>Create User</h2>
+<form action="{{ route('users.store') }}" method="POST" class="row g-3">
     @csrf
-    <div>
-        <label>Username:</label>
-        <input type="text" name="username" value="{{ old('username') }}" required>
+    <div class="col-md-4">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" required>
     </div>
-    <div>
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ old('email') }}" required>
+    <div class="col-md-4">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" required>
     </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password" required>
+    <div class="col-md-4">
+        <label class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" required>
     </div>
-    <div>
-        <label>Role:</label>
-        <select name="role_id" required>
-            <option value="">Select Role</option>
+    <div class="col-md-4">
+        <label class="form-label">Role</label>
+        <select name="role_id" class="form-select" required>
+            <option value="">Select role</option>
             @foreach($roles as $role)
             <option value="{{ $role->roleID }}">{{ $role->roleName }}</option>
             @endforeach
         </select>
     </div>
-    <button type="submit">Create User</button>
+    <div class="col-12">
+        <button class="btn btn-success">Create</button>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
+    </div>
 </form>
 @endsection

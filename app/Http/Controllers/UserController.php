@@ -39,6 +39,8 @@ class UserController extends Controller
         $user->roleID   = $request->role_id;
         $user->save();
 
+        toastr()->success('User created successfully.');
+
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
@@ -69,6 +71,8 @@ class UserController extends Controller
         $user->roleID = $request->role_id;
         $user->save();
 
+        toastr()->success('User updated successfully.');
+
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
@@ -79,6 +83,8 @@ class UserController extends Controller
         // Assuming you have an 'active' column to mark user status
         $user->active = false;
         $user->save();
+
+        toastr()->success('User deactivated successfully.');
 
         return redirect()->route('users.index')->with('success', 'User deactivated successfully.');
     }
